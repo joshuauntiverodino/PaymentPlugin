@@ -1,16 +1,16 @@
 <?php
 
-namespace PaymentPlugin\Helper;
+namespace PayUponPickup\Helper;
 
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Payment\Method\Models\PaymentMethod;
 
 /**
- * Class PaymentPluginHelper
+ * Class PayUponPickupHelper
  *
- * @package PaymentPlugin\Helper
+ * @package PayUponPickup\Helper
  */
-class PaymentPluginHelper
+class PayUponPickupHelper
 {
     /**
      * @var PaymentMethodRepositoryContract $paymentMethodRepository
@@ -18,7 +18,7 @@ class PaymentPluginHelper
     private $paymentMethodRepository;
 
     /**
-     * PaymentPluginHelper constructor.
+     * PayUponPickupHelper constructor.
      *
      * @param PaymentMethodRepositoryContract $paymentMethodRepository
      */
@@ -35,9 +35,9 @@ class PaymentPluginHelper
         // Check whether the ID of the Pay upon pickup payment method has been created
         if($this->getPaymentMethod() == 'no_paymentmethod_found')
         {
-            $paymentMethodData = array( 'pluginKey' => 'plenty_PaymentPlugin',
-                                        'paymentKey' => 'PAYMENTPLUGIN',
-                                        'name' => 'Payment Plugin');
+            $paymentMethodData = array( 'pluginKey' => 'plenty_payuponpickup',
+                                        'paymentKey' => 'PAYUPONPICKUP',
+                                        'name' => 'Pay upon pickup');
 
             $this->paymentMethodRepository->createPaymentMethod($paymentMethodData);
         }
@@ -51,13 +51,13 @@ class PaymentPluginHelper
      */
     public function getPaymentMethod()
     {
-        $paymentMethods = $this->paymentMethodRepository->allForPlugin('plenty_PaymentPlugin');
+        $paymentMethods = $this->paymentMethodRepository->allForPlugin('plenty_payuponpickup');
 
         if( !is_null($paymentMethods) )
         {
             foreach($paymentMethods as $paymentMethod)
             {
-                if($paymentMethod->paymentKey == 'PAYMENTPLUGIN')
+                if($paymentMethod->paymentKey == 'PAYUPONPICKUP')
                 {
                     return $paymentMethod->id;
                 }

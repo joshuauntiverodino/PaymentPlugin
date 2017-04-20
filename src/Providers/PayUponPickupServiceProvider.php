@@ -1,6 +1,6 @@
 <?php
 
-namespace PaymentPlugin\Providers;
+namespace PayUponPickup\Providers;
 
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Events\Dispatcher;
@@ -10,14 +10,14 @@ use Plenty\Modules\Basket\Events\Basket\AfterBasketCreate;
 use Plenty\Modules\Basket\Events\Basket\AfterBasketChanged;
 use Plenty\Modules\Basket\Events\BasketItem\AfterBasketItemAdd;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodContainer;
-use PaymentPlugin\Helper\PaymentPluginHelper;
-use PaymentPlugin\Methods\PaymentPluginPaymentMethod;
+use PayUponPickup\Helper\PayUponPickupHelper;
+use PayUponPickup\Methods\PayUponPickupPaymentMethod;
 
 /**
- * Class PaymentPluginServiceProvider
- * @package PaymentPlugin\Providers
+ * Class PayUponPickupServiceProvider
+ * @package PayUponPickup\Providers
  */
-class PaymentPluginServiceProvider extends ServiceProvider
+class PayUponPickupServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -27,19 +27,19 @@ class PaymentPluginServiceProvider extends ServiceProvider
     /**
      * Boot additional services for the payment method
      *
-     * @param PaymentPluginHelper $paymentHelper
+     * @param PayUponPickupHelper $paymentHelper
      * @param PaymentMethodContainer $payContainer
      * @param Dispatcher $eventDispatcher
      */
-    public function boot( PaymentPluginHelper $paymentHelper,
+    public function boot( PayUponPickupHelper $paymentHelper,
                           PaymentMethodContainer $payContainer,
                           Dispatcher $eventDispatcher)
     {
         // Create the ID of the payment method if it doesn't exist yet
         $paymentHelper->createMopIfNotExists();
 
-        // Register the payment plugin payment method in the payment method container
-        $payContainer->register('plenty_paymentplugin::PAYMENTPLUGIN', PaymentPluginPaymentMethod::class,
+        // Register the Pay upon pickup payment method in the payment method container
+        $payContainer->register('plenty_payuponpickup::PAYUPONPICKUP', PayUponPickupPaymentMethod::class,
                               [ AfterBasketChanged::class, AfterBasketItemAdd::class, AfterBasketCreate::class ]
         );
 
@@ -60,7 +60,7 @@ class PaymentPluginServiceProvider extends ServiceProvider
            {
                if($event->getMop() == $paymentHelper->getPaymentMethod())
                {
-                   $event->setValue('<h1>Payment Plugin<h1>');
+                   $event->setValue('<h1>Pay upon pickup<h1>');
                    $event->setType('htmlContent');
                }
            });

@@ -4,7 +4,7 @@
         "key"     : "name",
         "label"   : "Name",
         "type"    : "text",
-        "default" : "Payment Plugin"
+        "default" : "Pay upon pickup"
     },
     {
       "tab": "Settings",

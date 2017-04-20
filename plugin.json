@@ -1,0 +1,10 @@
+{
+    "name"              : "PaymentPlugin,
+    "description"       : "Pay upon pickup payment method",
+    "author"            : "Joshua",
+    "keywords"          : ["plentymarkets", "payment method", "plugin"],
+    "type"              : "payment",
+    "namespace"         : "PaymentPlugin",
+    "require"           : [],
+    "serviceProvider"   : "PaymentPlugin\\Providers\\PaymentPluginServiceProvider"
+}
